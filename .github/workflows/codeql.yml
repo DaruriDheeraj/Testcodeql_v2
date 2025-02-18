@@ -62,7 +62,7 @@ jobs:
     #   uses: actions/setup-example@v1
     
     - name: Remove old CodeQL database (if exists)
-      run: rm -rf ${{ github.workspace }}/.codeql/databases/csharp
+      run: rm -rf ${{ github.workspace }}/.codeql/databases/csharp || true
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
