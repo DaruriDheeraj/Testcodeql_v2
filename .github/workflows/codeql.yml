@@ -94,3 +94,9 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Run CodeQL with Custom Queries
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
+        queries: ./custom-queries/hardcoded-secrets.ql
