@@ -95,8 +95,10 @@ jobs:
 
     - name: Build the project with Autobuild
       uses: github/codeql-action/autobuild@v3
-      category: "/language:csharp"
+      with:
+        category: "/language:csharp"
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      category: "/language:csharp"
+      with:
+        category: "/language:csharp"
