@@ -92,8 +92,9 @@ jobs:
         echo '  make bootstrap'
         echo '  make release'
         exit 1
-    - name: Run CodeQL with Custom Queries
+
+    - name: Build the project with Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:csharp-${{ github.run_id }}"
-        queries: ./custom-queries/hardcoded-secrets.ql
