@@ -4,7 +4,7 @@ public class AccountController : Controller
 {
     // Dummy username and password for testing
     private const string DummyUsername = "admin";
-    private const string DummyPassword = "password122";  // Dummy password
+    private const string DummyPassword = "password123";  // Dummy password
 
     // GET: Login
     public IActionResult Login()
