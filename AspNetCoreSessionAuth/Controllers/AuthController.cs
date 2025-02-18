@@ -1,71 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using BCrypt.Net;
 
-public class AuthController : Controller
+public class AccountController : Controller
 {
-    private readonly UserRepository _userRepo;
+    // Dummy username and password for testing
+    private const string DummyUsername = "admin";
+    private const string DummyPassword = "password123";  // Dummy password
 
-    public AuthController(UserRepository userRepo)
-    {
-        _userRepo = userRepo;
-    }
-
+    // GET: Login
     public IActionResult Login()
     {
         return View();
     }
 
+    // POST: Login
     [HttpPost]
     public IActionResult Login(string username, string password)
     {
-        var user = _userRepo.GetUserByUsername(username);
-
-        if (user != null && BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+        // Compare entered username and password with dummy credentials
+        if (username == DummyUsername && password == DummyPassword)
         {
-            HttpContext.Session.SetString("UserId", user.Id.ToString());
-            HttpContext.Session.SetString("Username", user.Username);
+            // Successful login - redirect to a different page (e.g., Dashboard)
             return RedirectToAction("Dashboard");
         }
-
-        ViewBag.Message = "Invalid credentials";
-        return View();
-    }
-
-    public IActionResult Register()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Register(string username, string password)
-    {
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-
-        var user = new User
+        else
         {
-            Username = username,
-            PasswordHash = hashedPassword
-        };
-
-        _userRepo.AddUser(user);
-        return RedirectToAction("Login");
+            // If credentials are incorrect, show an error message
+            ViewBag.Message = "Invalid username or password.";
+            return View();
+        }
     }
 
-    public IActionResult Logout()
-    {
-        HttpContext.Session.Clear();
-        return RedirectToAction("Login");
-    }
-
+    // Dashboard (dummy)
     public IActionResult Dashboard()
     {
-        if (HttpContext.Session.GetString("UserId") == null)
-        {
-            return RedirectToAction("Login");
-        }
-
-        ViewBag.Username = HttpContext.Session.GetString("Username");
         return View();
     }
 }
