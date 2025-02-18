@@ -60,6 +60,9 @@ jobs:
     # or others). This is typically only required for manual builds.
     # - name: Setup runtime (example)
     #   uses: actions/setup-example@v1
+    
+    - name: Remove old CodeQL database (if exists)
+      run: rm -rf ${{ github.workspace }}/.codeql/databases/csharp
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
